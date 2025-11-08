@@ -1,7 +1,7 @@
 import json
 from botocore.exceptions import ClientError
 
-# Initialize AWS clients
+
 import boto3
 bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 bedrock_kb = boto3.client("bedrock-agent-runtime", region_name="us-east-1")
@@ -112,3 +112,4 @@ def generate_response(prompt, model_id=MODEL_ID, temperature=0.2, top_p=0.9):
     except ClientError as e:
         print(f"Error generating response: {e}")
         return ""
+
