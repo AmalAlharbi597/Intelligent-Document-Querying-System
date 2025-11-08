@@ -63,7 +63,7 @@ resource "aws_security_group" "aurora_sg" {
   }
 }
 
-# New resources for secret management
+
 resource "random_password" "master_password" {
   length  = 16
   special = true
@@ -85,4 +85,5 @@ resource "aws_secretsmanager_secret_version" "aurora_secret_version" {
     username            = aws_rds_cluster.aurora_serverless.master_username
     db                  = aws_rds_cluster.aurora_serverless.database_name
   })
+
 }
