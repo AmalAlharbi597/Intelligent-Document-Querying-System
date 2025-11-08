@@ -1,5 +1,3 @@
-
-
 resource "aws_iam_role" "bedrock_kb_role" {
   name = "${var.knowledge_base_name}-role"
 
@@ -145,4 +143,5 @@ resource "aws_bedrockagent_data_source" "s3_bedrock_bucket" {
     }
   }
   depends_on = [ aws_bedrockagent_knowledge_base.main ]
+
 }
