@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"  # Change this to your desired region
+  region = "us-east-1"  
 }
 
 module "vpc" {
@@ -7,9 +7,9 @@ module "vpc" {
   version = "~> 5.0"
 
   name = "bedrock-poc-vpc"
-  cidr = "10.0.0.0/16"  # You can modify this CIDR block as needed
+  cidr = "10.0.0.0/16" 
 
-  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]  # Change availability zones if needed
+  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]  
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 
@@ -21,7 +21,7 @@ module "vpc" {
 
   tags = {
     Terraform   = "true"
-    Environment = "dev"  # Change to "prod" for production
+    Environment = "dev"  
   }
 }
 
@@ -33,17 +33,17 @@ module "aurora_serverless" {
   subnet_ids         = module.vpc.private_subnets
 
   # Optionally override other defaults
-  database_name    = "ISQSDATA"  # Change this to your desired database name
-  master_username  = "Amadmin" # Change this to your desired master username
-  max_capacity     = 2          # Increase max capacity if needed
-  min_capacity     = 1          # Increase min capacity if needed
+  database_name    = "ISQSDATA"  
+  master_username  = "Amadmin" 
+  max_capacity     = 2          
+  min_capacity     = 1         
   allowed_cidr_blocks = ["10.0.0.0/16"]   
 }
 
 data "aws_caller_identity" "current" {}
 
 locals {
-  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}"  # This will remain dynamic
+  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}"  
 }
 
 module "s3_bucket" {
@@ -78,4 +78,5 @@ module "s3_bucket" {
     Terraform   = "true"
     Environment = "dev"  # Change to "prod" for production
   }
+
 }
